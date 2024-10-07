@@ -2,24 +2,25 @@
 
 ## Goal
 
-- With this application, UX/UI developers can practice real interviews to enhance their skills and build confidence.
-
+- With this application, both UX/UI designers like backend and frontend developers will be able to practice job interviews that will help them improve their skills and confidence in the hiring process.
 
 ## Description
 - This is the repository for the backend for the interview training application.
 
+## Technologies Used
+- **Java**: The primary programming language used for development.
+- **Spring**: A framework used to build the backend services.
+
 ## Contributions
 - If you want to contribute, please create a new branch and submit a *pull request*.
-
+---
 ## EndPoints
-- **Get** (/chat/ask)
-    - The application will show you a possible question that a UX/UI interviewer can ask you and it will give you advice
-    - Example:
-        - ![alt text](ReadMe_Images/image.png)
-        - ![alt text](ReadMe_Images/image-1.png)
-- **Post** (/chat/ask)
-    - You can ask the application anything and it will answer you
+- **Post** (*/chat/ask*)
+    - 
+    - Include the data in the POST request:
+      - "rank" (UX/UI designer, frontend, backend)
+      - "experience" (trainer, junior, semi-senior, senior, lead)
+    - Get the question
     - Example:
         - ![alt text](ReadMe_Images/image-2.png)
-        - ![alt text](ReadMe_Images/image-3.png)
-        - ![alt text](ReadMe_Images/image-4.png)
+        - ![alt text](ReadMe_Images/image-5.png)
