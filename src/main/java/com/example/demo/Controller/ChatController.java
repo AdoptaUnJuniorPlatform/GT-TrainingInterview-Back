@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import com.example.demo.model.Chat;
 import com.example.demo.service.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,14 +11,14 @@ public class ChatController {
     @Autowired
     private ChatService chatService;
 
-    @GetMapping("/ask")
-    public String ask() {
-        return chatService.getChatEmptyResponse();
+    @PostMapping("/ask")
+    public String ask(@RequestBody Chat chat) {
+        return chatService.getChatResponse(chat);
     }
 
-    @PostMapping("/ask")
-    public String ask(@RequestBody String userMessage) {
-        String responseText = chatService.getChatResponse(userMessage);
-        return chatService.getChatResponse(userMessage);
+    // Only to check the backend
+    @PostMapping("/check")
+    public String checkApp(@RequestBody Chat chat) {
+        return chatService.checkApp(chat);
     }
 }
