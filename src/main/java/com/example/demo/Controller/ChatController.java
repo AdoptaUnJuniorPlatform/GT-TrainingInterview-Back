@@ -16,6 +16,11 @@ public class ChatController {
         return chatService.getChatResponse(chat);
     }
 
+    @PostMapping("/feedback")
+    public String getFeedback(@RequestBody String question) {
+        return chatService.getFeedback(question);
+    }
+
     // Only to check the backend
     @PostMapping("/check")
     public String checkApp(@RequestBody Chat chat) {

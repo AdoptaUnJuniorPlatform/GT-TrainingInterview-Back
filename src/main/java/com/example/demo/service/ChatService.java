@@ -45,8 +45,20 @@ public class ChatService {
             );
             fillChatHistory(chatQuestionHistory, response.getText());
 
-            System.out.println(chatQuestionHistory.size());
+            return response.getText();
 
+        } catch (Exception e) {
+            return "Ocurrió un error al generar la pregunta. Inténtalo otra vez";
+        }
+    }
+
+    public String getFeedback(String question) {
+        try {
+            NonStreamedChatResponse response = cohere.chat(
+                    ChatRequest.builder()
+                            .message(question + ". ¿Puedes darme feedback de esta respuesta, que es la que le contesto a un reclutador para un puesto que puede ser de backend, frontend o diseñador ux/ui?")
+                            .build()
+            );
             return response.getText();
 
         } catch (Exception e) {
@@ -97,5 +109,4 @@ public class ChatService {
         );
         return response.getText();
     }
-
 }
