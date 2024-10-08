@@ -18,7 +18,7 @@
 - **Post** (*/chat/ask*)
     - 
     - Include the data in the POST request:
-      - "rank" (UX/UI designer, frontend, backend)
+      - "role" (UX/UI designer, frontend, backend)
       - "experience" (trainer, junior, semi-senior, senior, lead)
     - Get the question
     - Example:
