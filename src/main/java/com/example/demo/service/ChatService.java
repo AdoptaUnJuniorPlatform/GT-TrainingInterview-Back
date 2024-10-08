@@ -67,16 +67,16 @@ public class ChatService {
     }
 
     public void generatePrompt(Chat chat, List<String> promptQuestions) {
-        promptQuestions.add("Imagina que eres un reclutador y estás realizando una entrevista para un puesto de " + chat.getRank() + " a un candidato " + chat.getExperience() + ". ¿Cuál sería una de las preguntas que le harías?");
-        promptQuestions.add("Supongamos que eres un reclutador experimentado. ¿Qué pregunta plantearías a un candidato " + chat.getExperience() + " para un puesto de " + chat.getRank() + "?");
-        promptQuestions.add("Como reclutador con experiencia, ¿qué pregunta inicial le harías a un postulante " + chat.getExperience() + " para un trabajo de " + chat.getRank() + "?\"");
-        promptQuestions.add("Si fueras un reclutador en una entrevista para un puesto de " + chat.getRank() + " " + chat.getExperience() + ", ¿cuál sería una pregunta que consideras clave?");
-        promptQuestions.add("Eres un reclutador experimentado. ¿Cuál sería una pregunta que harías a un candidato " + chat.getExperience() + " que está solicitando un puesto en " + chat.getRank() + "?");
-        promptQuestions.add("Simula que eres un reclutador que está entrevistando a un candidato " + chat.getExperience() + " para un puesto de " + chat.getRank() + ". ¿Qué pregunta le harías?");
-        promptQuestions.add("Imagina que eres un reclutador buscando un desarrollador " + chat.getRank() + " " + chat.getExperience() + ". ¿Cuál sería tu primera pregunta para el candidato?");
-        promptQuestions.add("Como un reclutador con experiencia, ¿qué pregunta inicial considerarías importante para un puesto de " + chat.getRank() + " " + chat.getExperience() + "?");
-        promptQuestions.add("Supongamos que estás llevando a cabo entrevistas para un puesto de " + chat.getRank() + " " + chat.getExperience() + ". ¿Qué pregunta te gustaría hacer al candidato?");
-        promptQuestions.add("Eres un reclutador experimentado en la búsqueda de un desarrollador " + chat.getRank() + " " + chat.getExperience() + ". ¿Cuál sería una pregunta que le harías en la entrevista?");
+        promptQuestions.add("Imagina que eres un reclutador y estás realizando una entrevista para un puesto de " + chat.getRole() + " a un candidato " + chat.getExperience() + ". ¿Cuál sería una de las preguntas que le harías?");
+        promptQuestions.add("Supongamos que eres un reclutador experimentado. ¿Qué pregunta plantearías a un candidato " + chat.getExperience() + " para un puesto de " + chat.getRole() + "?");
+        promptQuestions.add("Como reclutador con experiencia, ¿qué pregunta inicial le harías a un postulante " + chat.getExperience() + " para un trabajo de " + chat.getRole() + "?\"");
+        promptQuestions.add("Si fueras un reclutador en una entrevista para un puesto de " + chat.getRole() + " " + chat.getExperience() + ", ¿cuál sería una pregunta que consideras clave?");
+        promptQuestions.add("Eres un reclutador experimentado. ¿Cuál sería una pregunta que harías a un candidato " + chat.getExperience() + " que está solicitando un puesto en " + chat.getRole() + "?");
+        promptQuestions.add("Simula que eres un reclutador que está entrevistando a un candidato " + chat.getExperience() + " para un puesto de " + chat.getRole() + ". ¿Qué pregunta le harías?");
+        promptQuestions.add("Imagina que eres un reclutador buscando un desarrollador " + chat.getRole() + " " + chat.getExperience() + ". ¿Cuál sería tu primera pregunta para el candidato?");
+        promptQuestions.add("Como un reclutador con experiencia, ¿qué pregunta inicial considerarías importante para un puesto de " + chat.getRole() + " " + chat.getExperience() + "?");
+        promptQuestions.add("Supongamos que estás llevando a cabo entrevistas para un puesto de " + chat.getRole() + " " + chat.getExperience() + ". ¿Qué pregunta te gustaría hacer al candidato?");
+        promptQuestions.add("Eres un reclutador experimentado en la búsqueda de un desarrollador " + chat.getRole() + " " + chat.getExperience() + ". ¿Cuál sería una pregunta que le harías en la entrevista?");
     }
 
     public List<String> generateChatQuestion() {

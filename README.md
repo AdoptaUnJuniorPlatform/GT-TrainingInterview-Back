@@ -23,7 +23,7 @@
     - Get the question
     - Example:
         - ![alt text](ReadMe_Images/image-2.png)
-        - ![alt text](ReadMe_Images/image-5.png)
+        - ![alt text](ReadMe_Images/image-7.png)
 - **Post** (*/chat/feedback*)
   - 
   - Enter your response to receive feedback

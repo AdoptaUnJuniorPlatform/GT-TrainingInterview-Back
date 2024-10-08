@@ -1,8 +1,7 @@
 package com.example.demo.model;
 
 public class Chat {
-    private String text;
-    private String rank;
+    private String role;
     private String experience;
     private String userResponse;
     private String prompt;
@@ -10,26 +9,18 @@ public class Chat {
     public Chat() {
     }
 
-    public Chat(String text, String level, String experience) {
-        this.text = text;
-        this.rank = level;
+    public Chat(String prompt, String level, String experience) {
+        this.prompt = prompt;
+        this.role = level;
         this.experience = experience;
     }
 
-    public String getText() {
-        return text;
+    public String getRole() {
+        return role;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getRank() {
-        return rank;
-    }
-
-    public void setRank(String rank) {
-        this.rank = rank;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getExperience() {
