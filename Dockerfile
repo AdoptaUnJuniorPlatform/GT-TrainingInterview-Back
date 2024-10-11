@@ -7,5 +7,8 @@ WORKDIR /app
 # Copia el archivo JAR generado a la imagen
 COPY target/demo-0.0.1-SNAPSHOT.jar /app/entrenador-entrevistas.jar
 
+# Port
+EXPOSE 5172
+
 # Especifica el comando para ejecutar la aplicación
 ENTRYPOINT ["java", "-jar", "entrenador-entrevistas.jar"]
