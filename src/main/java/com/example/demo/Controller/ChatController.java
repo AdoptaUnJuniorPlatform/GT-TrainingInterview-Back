@@ -12,13 +12,13 @@ public class ChatController {
     private ChatService chatService;
 
     @PostMapping("/ask")
-    public String ask(@RequestBody Chat chat) {
+    public Chat ask(@RequestBody Chat chat) {
         return chatService.getChatResponse(chat);
     }
 
     @PostMapping("/feedback")
-    public String getFeedback(@RequestBody String question) {
-        return chatService.getFeedback(question);
+    public String getFeedback(@RequestBody Chat chat) {
+        return chatService.getFeedback(chat);
     }
 
     // Only to check the backend

@@ -5,14 +5,16 @@ public class Chat {
     private String experience;
     private String userResponse;
     private String prompt;
+    private String feedback;
 
     public Chat() {
     }
 
-    public Chat(String prompt, String level, String experience) {
+    public Chat(String prompt, String level, String experience, String feedback) {
         this.prompt = prompt;
         this.role = level;
         this.experience = experience;
+        this.feedback = feedback;
     }
 
     public String getRole() {
@@ -45,5 +47,13 @@ public class Chat {
 
     public void setPrompt(String prompt) {
         this.prompt = prompt;
+    }
+
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
     }
 }
