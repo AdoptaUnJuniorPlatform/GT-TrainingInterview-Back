@@ -4,13 +4,10 @@ import com.cohere.api.Cohere;
 import com.cohere.api.core.CohereApiError;
 import com.cohere.api.requests.ChatRequest;
 import com.cohere.api.types.ChatMessage;
-import com.cohere.api.types.ChatRequestPromptTruncation;
 import com.cohere.api.types.Message;
 import com.cohere.api.types.NonStreamedChatResponse;
 import com.example.demo.model.Chat;
-import org.hibernate.dialect.unique.CreateTableUniqueDelegate;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.jpa.repository.query.JSqlParserUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -25,7 +22,6 @@ public class ChatService {
     private List<String> chatBackendQuestionHistory = new ArrayList<>();
     private List<String> chatFrontendQuestionHistory = new ArrayList<>();
     private List<String> chatUXUIDesginQuestionHistory = new ArrayList<>();
-
 
     public ChatService(@Value("${cohere.api.token}") String apiKey) {
         this.cohere = Cohere.builder().token(apiKey).clientName("Pildoras UX").build();
