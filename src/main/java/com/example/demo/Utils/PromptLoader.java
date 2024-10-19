@@ -2,6 +2,8 @@ package com.example.demo.Utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -12,15 +14,19 @@ import java.util.Random;
 
 @Component
 public class PromptLoader {
+    @Value("${general.prompt}")
+    private String generalPrompt;
+
     private List<String> prompts;
 
-    public PromptLoader() throws IOException {
+    @PostConstruct
+    public void init() {
+        prompts = new ArrayList<>();
         try {
             loadPrompts();
         } catch (IOException e) {
-            e.printStackTrace();
-            // Especificar que hacer si no se carga el prompt
-            prompts = List.of();
+            System.err.println("Error al cargar los prompts. Se carga el general.prompt");
+            prompts.add(generalPrompt);
         }
     }
 

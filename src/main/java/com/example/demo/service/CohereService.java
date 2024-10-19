@@ -17,9 +17,14 @@ public class CohereService {
     private final Cohere cohere;
     private final PromptLoader promptLoader;
 
+    @Value("${client}")
+    private String client;
+    @Value("${final.prompt}")
+    private String finalPrompt;
+
     @Autowired
     public CohereService(@Value("${cohere.api.token}") String apiKey, PromptLoader promptLoader) throws IOException {
-        this.cohere = Cohere.builder().token(apiKey).clientName("Pildoras UX").build();
+        this.cohere = Cohere.builder().token(apiKey).clientName(client).build();
         this.promptLoader = promptLoader;
     }
 
@@ -33,7 +38,7 @@ public class CohereService {
 
             NonStreamedChatResponse response = cohere.chat(
                     ChatRequest.builder()
-                            .message(formattedPrompt + ".Genera una pregunta entre ¿? + Feedback para el entrevistado sobre que debería responder")
+                            .message(formattedPrompt + finalPrompt)
                             .chatHistory(
                                     List.of(
                                     )
@@ -44,6 +49,7 @@ public class CohereService {
             return questionObj;
 
         } catch (Exception e) {
+            // TODO - Recoger pregunta y comentario de la base de datos
             return question;
         }
     }

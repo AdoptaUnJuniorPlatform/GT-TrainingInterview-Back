@@ -17,6 +17,9 @@ public class QuestionController {
         String role = question.getRole();
         String experience = question.getExperience();
         String theme = question.getTheme();
+
+        questionService.avoidEmptyFields(question);
+
         return questionService.showQuestion(question);
     }
 
