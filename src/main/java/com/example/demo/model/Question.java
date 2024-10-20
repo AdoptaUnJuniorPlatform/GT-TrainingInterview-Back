@@ -10,7 +10,7 @@ public class Question {
 
     @Column(length = 500)
     private String question;
-    @Column(length = 1500)
+    @Column(length = 3000)
     private String comment;
     private String role;
     private String experience;
