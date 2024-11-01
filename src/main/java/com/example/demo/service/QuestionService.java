@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.Repository.QuestionRepository;
 import com.example.demo.model.Question;
+import com.example.demo.model.Questionary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -27,30 +28,40 @@ public class QuestionService {
         this.questionRepository = questionRepository;
     }
 
-    public Question showQuestion(Question question) {
-        Question cohereQuestion = cohereService.getIAResponse(question);
-        question.setQuestion(cohereQuestion.getQuestion());
-        question.setComment(cohereQuestion.getComment());
+    public Questionary generateQuestion(Questionary questionary) {
+        String role = questionary.getRole();
+        String experience = questionary.getExperience();
+        String theme = questionary.getTheme();
 
-        questionRepository.save(question);
+        avoidEmptyFields(questionary);
 
-        return question;
+        return cohereService.generateQuestionary(questionary);
     }
+
+//    public Question showQuestion(Question question) {
+//        Question cohereQuestion = cohereService.getIAResponse(question);
+//        question.setQuestion(cohereQuestion.getQuestion());
+//        question.setComment(cohereQuestion.getComment());
+//
+//        questionRepository.save(question);
+//
+//        return question;
+//    }
 
     public String getIAFeedback(String userResponse, Question question) {
         return cohereService.getIAFeedback(userResponse, question);
     }
 
-    public Question avoidEmptyFields(Question question) {
-        if(question.getRole().isEmpty()) {
-            question.setRole(defaultRole);
+    public Questionary avoidEmptyFields(Questionary qestionary) {
+        if(qestionary.getRole().isEmpty()) {
+            qestionary.setRole(defaultRole);
         }
-        if(question.getExperience().isEmpty()) {
-            question.setExperience(defaultExperience);
+        if(qestionary.getExperience().isEmpty()) {
+            qestionary.setExperience(defaultExperience);
         }
-        if(question.getTheme().isEmpty()) {
-            question.setTheme(defaultTheme);
+        if(qestionary.getTheme().isEmpty()) {
+            qestionary.setTheme(defaultTheme);
         }
-        return question;
+        return qestionary;
     }
 }

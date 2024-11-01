@@ -7,6 +7,7 @@ import com.cohere.api.types.Message;
 import com.cohere.api.types.NonStreamedChatResponse;
 import com.example.demo.Utils.FileLoader;
 import com.example.demo.model.Question;
+import com.example.demo.model.Questionary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -39,12 +40,10 @@ public class CohereService {
         this.backendChatHistory = backendChatHistory;
     }
 
-    public Question getIAResponse(Question question) {
-
+    public Questionary generateQuestionary(Questionary questionary) {
         try {
-            String prompt = generatePrompt(fileLoader, question, "src/main/resources/prompts/prompts.json", "prompts");
-            chatHistory = generateChatHistoryList(fileLoader, question);
-            System.out.println("Lista de historia de " + question.getRole() + " = " + chatHistory.size());
+            String prompt = generatePrompt(fileLoader, questionary, "src/main/resources/prompts/questionaryPrompts.json", "prompts");
+            chatHistory = generateChatHistoryList(fileLoader, questionary);
 
             NonStreamedChatResponse response = cohere.chat(
                     ChatRequest.builder()
@@ -60,16 +59,97 @@ public class CohereService {
                             )
                             .build()
             );
-            Question questionObj = splitResponse(question, response.getText());
-            fillChatHistory(questionObj);
 
-            return questionObj;
+            Questionary questionaryObj = splitResponse(questionary, response.getText());
+
+            return questionaryObj;
 
         } catch (Exception e) {
             // TODO - Recoger pregunta y comentario de la base de datos
-            return question;
+            return questionary;
         }
     }
+
+    // New Proyect
+    private Questionary splitResponse(Questionary questinaryObj, String response) {
+        // Buscar el índice del primer signo de apertura '¿'
+        int firstQuestionMarkIndex = response.indexOf("¿");
+        // Buscar el índice del primer signo de cierre '?' después del signo '¿'
+        int lastQuestionMarkIndex = response.indexOf("?", firstQuestionMarkIndex);
+
+        if (firstQuestionMarkIndex != -1 && lastQuestionMarkIndex != -1) {
+            // Extraer la pregunta entre ¿ y ?
+            String question = response.substring(firstQuestionMarkIndex, lastQuestionMarkIndex + 1).trim();
+            questinaryObj.setQuestion(question);
+
+            // Extraer las respuestas a partir del texto que sigue después del signo '?'
+            String remainingText = response.substring(lastQuestionMarkIndex + 1).trim();
+
+            // Buscar cada respuesta usando los prefijos "1.-", "2.-", y "3.-"
+            String[] responses = new String[3];
+            responses[0] = extractResponse(remainingText, "1)", "2)");
+            responses[1] = extractResponse(remainingText, "2)", "3)");
+            responses[2] = extractResponse(remainingText, "3)", "4)");
+
+            // Asignar las respuestas al objeto Question
+            questinaryObj.setCorrectAnswer(responses[0]);
+            questinaryObj.setWrongAnswerA(responses[1]);
+            questinaryObj.setWrongAnswerB(responses[2]);
+
+            System.out.println("=================== PREGUNTA ===========================");
+            System.out.println(questinaryObj.getQuestion());
+            System.out.println("=================== A ===========================");
+            System.out.println("A -> " + questinaryObj.getCorrectAnswer());
+            System.out.println("=================== B ===========================");
+            System.out.println("B -> " + questinaryObj.getWrongAnswerA());
+            System.out.println("=================== C ===========================");
+            System.out.println("C -> " + questinaryObj.getWrongAnswerB());
+        }
+        return questinaryObj;
+    }
+
+    // Método auxiliar para extraer la respuesta entre dos prefijos específicos
+    private String extractResponse(String text, String startDelimiter, String endDelimiter) {
+        int startIndex = text.indexOf(startDelimiter);
+        int endIndex = endDelimiter != null ? text.indexOf(endDelimiter) : text.length();
+
+        if (startIndex != -1 && endIndex != -1 && startIndex < endIndex) {
+            return text.substring(startIndex + startDelimiter.length(), endIndex).trim();
+        }
+        return "";
+    }
+
+
+//    public Question getIAResponse(Question question) {
+//
+//        try {
+//            String prompt = generatePrompt(fileLoader, question, "src/main/resources/prompts/prompts.json", "prompts");
+//            chatHistory = generateChatHistoryList(fileLoader, question);
+//
+//            NonStreamedChatResponse response = cohere.chat(
+//                    ChatRequest.builder()
+//                            .message(prompt + finalPrompt)
+//                            .chatHistory(
+//                                    List.of(
+//                                            Message.user(ChatMessage.builder().message(chatHistory.get(chatHistory.size() - 5)).build()),
+//                                            Message.user(ChatMessage.builder().message(chatHistory.get(chatHistory.size() - 4)).build()),
+//                                            Message.user(ChatMessage.builder().message(chatHistory.get(chatHistory.size() - 3)).build()),
+//                                            Message.user(ChatMessage.builder().message(chatHistory.get(chatHistory.size() - 2)).build()),
+//                                            Message.user(ChatMessage.builder().message(chatHistory.get(chatHistory.size() - 1)).build())
+//                                    )
+//                            )
+//                            .build()
+//            );
+//            Question questionObj = splitResponse(question, response.getText());
+//            fillChatHistory(questionObj);
+//
+//            return questionObj;
+//
+//        } catch (Exception e) {
+//            // TODO - Recoger pregunta y comentario de la base de datos
+//            return question;
+//        }
+//    }
 
     public String getIAFeedback(String userResponse, Question question) {
         String userResponseLimited  = "";
@@ -100,7 +180,7 @@ public class CohereService {
         }
     }
 
-    private Question splitResponse(Question questionObj, String response) {
+    private Question splitResponseQuestion(Question questionObj, String response) {
         // Buscar el índice del primer signo de apertura '¿'
         int firstQuestionMarkIndex = response.indexOf("¿");
         // Buscar el índice del primer signo de cierre '?' después del signo '¿'
@@ -116,21 +196,19 @@ public class CohereService {
         return questionObj;
     }
 
-
-
-    private String generatePrompt(FileLoader fileLoader, Question question, String path, String jsonType) throws IOException {
+    private String generatePrompt(FileLoader fileLoader, Questionary questionary, String path, String jsonType) throws IOException {
         List<String> list = fileLoader.loadPromptsFromFile(path, jsonType);
         String prompt = fileLoader.getRandomPrompt(list);
         String formattedPrompt = prompt
-                .replace("{role}", question.getRole())
-                .replace("{experience}", question.getExperience())
-                .replace("{tematica}", question.getTheme());
+                .replace("{role}", questionary.getRole())
+                .replace("{experience}", questionary.getExperience())
+                .replace("{tematica}", questionary.getTheme());
         System.out.println(formattedPrompt);
         return formattedPrompt;
     }
 
-    private List<String> generateChatHistoryList(FileLoader fileLoader, Question question) throws IOException {
-        switch(question.getRole()) {
+    private List<String> generateChatHistoryList(FileLoader fileLoader, Questionary questionary) throws IOException {
+        switch(questionary.getRole()) {
             case "diseñador ux/ui":
                 if(uxuiDesignChatHistory.isEmpty()){
                     return uxuiDesignChatHistory = fileLoader.loadPromptsFromFile("src/main/resources/questions/UXUIDesignQuestions.json", "ux/ui design");

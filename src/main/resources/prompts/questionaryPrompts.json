@@ -1,0 +1,14 @@
+{
+  "prompts": [
+    "Crea una pregunta entre ¿? para un {role} {experience} en {tematica} con 4 respuestas. La primera debe ser correcta, y las 3 siguientes incorrectas. Numera las respuestas como 1), 2), 3) y 4) . Sin feedback",
+    "Escribe una pregunta entre ¿? para un {role} {experience} en el tema de {tematica} con 4 respuestas. La primera respuesta es verdadera, y las 3 siguientes son falsas. Numera cada opción como 1), 2), 3) y 4) . Sin feedback",
+    "Genera una pregunta entre ¿? sobre {tematica} para un {role} {experience} seguida de 4 respuestas. La primera es correcta, las 3 siguientes son incorrectas, y numera las respuestas 1), 2), 3) y 4) . Sin feedback",
+    "Crea una pregunta entre ¿? para un {role} {experience} en {tematica} con 4 opciones de respuesta. La primera respuesta es la correcta y las 3 últimas son falsas. Numera las respuestas 1), 2), 3) y 4) . Sin feedback",
+    "Escribe una pregunta entre ¿? para un {role} {experience} sobre {tematica} con 4 respuestas, siendo la primera la correcta y las 3 restantes incorrectas. Numera cada opción como 1), 2), 3) y 4) . Sin feedback",
+    "Genera una pregunta entre ¿? para un {role} {experience} en el área de {tematica}. Incluye 4 respuestas, siendo la primera correcta y las 3 siguientes incorrectas. Numera como 1), 2), 3) y 4) . Sin feedback",
+    "Escribe una pregunta entre ¿? para un {role} {experience} relacionada con {tematica} e incluye 4 respuestas. La primera debe ser la correcta, y las siguientes 3 incorrectas. Numera cada respuesta como 1), 2), 3) y 4) . Sin feedback",
+    "Crea una pregunta entre ¿? para un {role} {experience} en el contexto de {tematica} con 4 opciones de respuesta. La primera es la correcta, las otras 3 incorrectas, numeradas 1), 2), 3) y 4) . Sin feedback",
+    "Genera una pregunta entre ¿? para un {role} {experience} en {tematica} con 4 respuestas numeradas. La primera respuesta debe ser la correcta, y las otras 3 incorrectas. Numera cada opción 1), 2), 3) y 4) . Sin feedback",
+    "Crea una pregunta entre ¿? sobre {tematica} para un {role} {experience} con 4 respuestas. La primera opción debe ser correcta, y las 3 siguientes incorrectas, numeradas 1), 2), 3) y 4) . Sin feedback"
+  ]
+}
