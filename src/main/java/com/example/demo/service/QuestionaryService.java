@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.Repository.QuestionRepository;
+import com.example.demo.Repository.QuestionaryRepository;
 import com.example.demo.model.Questionary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,16 +8,15 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class QuestionaryService {
 
-    private QuestionRepository questionRepository;
+    private QuestionaryRepository questionRepository;
     private List<Long> idQuestionShowed = new ArrayList<>();
 
     @Autowired
-    public QuestionaryService(QuestionRepository questionRepository) {
+    public QuestionaryService(QuestionaryRepository questionRepository) {
         this.questionRepository = questionRepository;
     }
 
@@ -46,7 +45,7 @@ public class QuestionaryService {
 
     public void checkParams(Questionary questionary) {
         if (questionary.getRole().isEmpty()) {
-            questionary.setRole("diseñador ux/ui");
+            questionary.setRole("design");
         }
         if (questionary.getExperience().isEmpty()) {
             questionary.setExperience("junior");

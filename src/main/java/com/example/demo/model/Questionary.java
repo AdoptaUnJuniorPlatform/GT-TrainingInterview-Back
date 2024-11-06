@@ -20,7 +20,9 @@ public class Questionary {
     @Column(length = 3000)
     private String wrongAnswerB;
     @Column(length = 3000)
-    private String wrongAnswerC;
+    private String correctFeedback;
+    @Column(length = 3000)
+    private String wrongFeedback;
 
     public Long getId() {
         return id;
@@ -86,11 +88,19 @@ public class Questionary {
         this.wrongAnswerB = wrongAnswerB;
     }
 
-    public String getWrongAnswerC() {
-        return wrongAnswerC;
+    public String getCorrectFeedback() {
+        return correctFeedback;
     }
 
-    public void setWrongAnswerC(String wrongAnswerC) {
-        this.wrongAnswerC = wrongAnswerC;
+    public void setCorrectFeedback(String correctFeedback) {
+        this.correctFeedback = correctFeedback;
+    }
+
+    public String getWrongFeedback() {
+        return wrongFeedback;
+    }
+
+    public void setWrongFeedback(String wrongFeedback) {
+        this.wrongFeedback = wrongFeedback;
     }
 }

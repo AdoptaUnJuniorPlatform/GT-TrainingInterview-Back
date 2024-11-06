@@ -56,13 +56,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Corehe dependency -->
-		<dependency>
-			<groupId>com.cohere</groupId>
-			<artifactId>cohere-java</artifactId>
-			<version>1.3.2</version>
-		</dependency>
-
 		<!-- Postgresql dependency -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
