@@ -18,7 +18,7 @@ public class QuestionaryController {
         this.questionaryService = questionaryService;
     }
 
-    @GetMapping("/loadQuestions")
+    @PostMapping("/loadQuestions")
     public List<Questionary> loadQuestions(@RequestBody Questionary questionary) {
         return questionaryService.loadQuestionary(questionary);
     }
